@@ -9,6 +9,9 @@ export class PersonDetail extends Component<IPersonDetailProps, {}> {
 
     render() {
         const { person } = this.props;
+        if (!person) {
+            return <span>No data</span>;
+        }
 
         return (
             <div className="form">

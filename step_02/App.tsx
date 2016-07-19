@@ -3,28 +3,21 @@ import { Component } from 'react';
 import { restService } from '../common';
 import { PersonDetail } from './PersonDetail';
 
-export interface IAppState {
-    person: any;
-}
-
-export class App extends Component<{}, IAppState> {
-    constructor() {
-        super();
-        this.onLoad = this.onLoad.bind(this);
-        this.state = { person: null };
-    }
-
-    onLoad() {
-        restService
-            .get('Person', '1')
-            .then((person: any) => {
-                this.setState({ person: person});
-            });
-    }
+export class App extends Component<{}, {}> {
 
     render() {
+        const person = {
+            FirstName: 'Static',
+            LastName: 'Person'
+        };
         return (
-            <PersonDetail onLoad={this.onLoad} person={this.state.person}/>
+            <div>
+                <div>
+                    <button>Load</button>
+                    <button>Save</button>
+                </div>
+                <PersonDetail person={person}/>
+            </div>                        
         );
     }
 }

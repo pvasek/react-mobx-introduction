@@ -5,23 +5,30 @@ import { restService } from '../common';
 export class App extends Component<{}, {}> {
 
     render() {
+        const person = {
+            FirstName: 'Static',
+            LastName: 'Person'
+        };
+
         return (
-            <div className="form">
+            <div>
                 <div>
                     <button>Load</button>
                     <button>Save</button>
                 </div>
-                <div>
-                    <label>First Name:</label>
-                    <input type="text"/>
-                </div>
-                <div>
-                    <label>Last Name:</label>
-                    <input type="text"/>
-                </div>
-                <div>
-                    <label>Country:</label>
-                    <select />
+                <div className="form">
+                    <div>
+                        <label>First Name:</label>
+                        <input type="text" value={person.LastName}/>
+                    </div>
+                    <div>
+                        <label>Last Name:</label>
+                        <input type="text" value={person.FirstName}/>
+                    </div>
+                    <div>
+                        <label>Country:</label>
+                        <select />
+                    </div>
                 </div>
             </div>
         );

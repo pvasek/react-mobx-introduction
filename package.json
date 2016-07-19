@@ -4,12 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-      "webpack:watch:dev": "webpack-dev-server --watch --inline"
+    "webpack:watch:dev": "webpack-dev-server --watch --inline"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "core-js": "^2.4.1",
+    "mobx": "^2.3.7",
+    "mobx-react": "^3.5.1",
     "react": "^15.2.1",
     "react-dom": "^15.2.1"
   },
