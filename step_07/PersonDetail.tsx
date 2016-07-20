@@ -8,14 +8,8 @@ export interface IPersonDetailProps {
     person: any;
 }
 
-export interface IFieldParent {
-    state: any;
-    setState(state: any);
-}
-
 export class Field {
     constructor(
-        private parent: IFieldParent, 
         private name: string, 
         private validator: (value: any) => string[] = null) {
 
@@ -44,8 +38,8 @@ const isRequired =  (value) => {
 @observer
 export class PersonDetail extends Component<IPersonDetailProps, any> {
 
-    private FirstName = new Field(this, 'FirstName', isRequired);
-    private LastName = new Field(this, 'LastName', isRequired);
+    private FirstName = new Field('FirstName', isRequired);
+    private LastName = new Field('LastName', isRequired);
 
     componentWillReceiveProps(nextProps: IPersonDetailProps) {
         this.FirstName.value = nextProps.person.FirstName;
