@@ -12,7 +12,6 @@ _Example how to use onChange handler:_
 class MyComponent extends Component<any, any> {
     constructor() {
         super();
-        // this is neccessary in order to assign it directly in render
         this.onChangeHandler = this.onChangeHandler.bind(this);
     } 
 
@@ -21,7 +20,7 @@ class MyComponent extends Component<any, any> {
     }
 
     render() {
-        return <input onChange={this.onChange} .../>
+        return <input onChange={this.onChangeHandler} .../>
     }
 }
 ```

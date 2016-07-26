@@ -22,3 +22,11 @@ __Example how to render string array:__
         );
     }
 ```
+
+You will need to use PersonDetail props which will be initalized to the person property which is passed to it:
+That means you will need the following code in `PersonDetail` component
+```
+    componentWillReceiveProps(nextProps: IPersonDetailProps) {
+        this.setState(nextProps.person);
+    }
+```

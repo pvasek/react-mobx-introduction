@@ -16,6 +16,25 @@ This service is completely mocked. But there is delay between it returns data (2
  });
 ```
 
+## Binding onClick event handler
+Because the event callbacks run in context of the given HTML element you need to bind the method to use explicit this argument.
+
+```
+class MyComponent extends Component<any, any> {
+    constructor() {
+        super();
+        this.onClickHandler = this.onClickHandler.bind(this);
+    } 
+
+    onClickHandler(e: MouseEvent) {
+        // now you can use `this` without problems 
+    }
+
+    render() {
+        return <button onClick={this.onClickHandler}>My Button</button>
+    }
+}
+```
 
 ## Hints
 - you need to use state on App component
