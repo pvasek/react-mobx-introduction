@@ -21,8 +21,8 @@ export class Field {
     @observable value: any = null;
     @observable errors: string[] = [];
 
-    onChange(e: KeyboardEvent) {
-        const value = (e.target as HTMLInputElement).value;
+    onChange(e: React.ChangeEvent<HTMLInputElement>) {
+        const value = e.target.value;
         this.value = value;
         this.errors = this.validator(value);            
     }

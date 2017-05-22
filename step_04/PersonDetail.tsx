@@ -31,12 +31,12 @@ export class PersonDetail extends Component<IPersonDetailProps, IPersonDetailSta
         this.setState(nextProps.person);
     }
 
-    onFirstNameChange(e: KeyboardEvent) {
-        this.setState({FirstName: (e.target as HTMLInputElement).value});
+    onFirstNameChange(e: React.ChangeEvent<HTMLInputElement>) {
+        this.setState({FirstName: e.target.value});
     }
 
-    onLastNameChange(e: KeyboardEvent) {
-        this.setState({LastName: (e.target as HTMLInputElement).value});
+    onLastNameChange(e: React.ChangeEvent<HTMLInputElement>) {
+        this.setState({LastName: e.target.value});
     }
 
     render() {

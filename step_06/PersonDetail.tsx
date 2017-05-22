@@ -38,8 +38,8 @@ export class Field {
         return this.parent.state[this.name + this.errorsSufix]
     }
 
-    onChange(e: KeyboardEvent) {
-        const value = (e.target as HTMLInputElement).value;
+    onChange(e: React.ChangeEvent<HTMLInputElement>) {
+        const value = e.target.value;
         const errors = this.validator(value);            
         this.setState(value, errors);
     }

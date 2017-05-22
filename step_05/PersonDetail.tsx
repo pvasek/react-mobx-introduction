@@ -62,8 +62,8 @@ export class PersonDetail extends Component<IPersonDetailProps, any> {
         });
     }
 
-    onFirstNameChange(e: KeyboardEvent) {
-        const value = (e.target as HTMLInputElement).value;
+    onFirstNameChange(e: React.ChangeEvent<HTMLInputElement>) {
+        const value = e.target.value;
         const errors = isRequired(value);
         this.setState({
             FirstName: value,
@@ -71,8 +71,8 @@ export class PersonDetail extends Component<IPersonDetailProps, any> {
         });
     }
 
-    onLastNameChange(e: KeyboardEvent) {
-        const value = (e.target as HTMLInputElement).value;
+    onLastNameChange(e: React.ChangeEvent<HTMLInputElement>) {
+        const value = e.target.value;
         const errors = isRequired(value);
         this.setState({
             LastName: value,
