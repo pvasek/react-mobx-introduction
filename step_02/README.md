@@ -26,7 +26,7 @@ class MyComponent extends Component<any, any> {
         this.onClickHandler = this.onClickHandler.bind(this);
     } 
 
-    onClickHandler(e: MouseEvent) {
+    onClickHandler(e: React.MouseEvent<HtmlButtonElement>) {
         // now you can use `this` without problems 
     }
 
