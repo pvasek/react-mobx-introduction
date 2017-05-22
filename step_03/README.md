@@ -15,8 +15,8 @@ class MyComponent extends Component<any, any> {
         this.onChangeHandler = this.onChangeHandler.bind(this);
     } 
 
-    onChangeHandler(e: KeyboardEvent) {
-        const value = (e.target as HTMLInputElement).value;
+    onChangeHandler(e: React.ChangeEvent<HTMLInputElement>) {
+        const value = e.target.value;
     }
 
     render() {
