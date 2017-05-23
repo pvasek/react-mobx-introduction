@@ -1,41 +1,27 @@
 import * as React from 'react';
 import { Component } from 'react';
-import { restService } from '../common';
-import { PersonDetail } from './PersonDetail';
+import { PersonDetail, PersonDetailModel } from './PersonDetail';
 
 export interface IAppState {
     person: any;
 }
 
 export class App extends Component<{}, IAppState> {
-    constructor() {
-        super();
-        this.onLoad = this.onLoad.bind(this);
-        this.state = { person: null };
-    }
+    
+    personDetailModel = new PersonDetailModel();
 
-    componentWillMount() {
-        this.onLoad();
-    }
-
-    onLoad() {
-        restService
-            .get('Person', '1')
-            .then((person: any) => {
-                this.setState({ person: person});
-            });
-    }
+    /*componentWillMount() {
+        this.personDetailModel.onLoad();
+    }*/
 
     render() {
-        const { person } = this.state;
-
         return (
             <div>
                 <div>
-                    <button onClick={this.onLoad}>Load</button>
+                    <button onClick={this.personDetailModel.onLoad}>Load</button>
                     <button>Save</button>
                 </div>
-                <PersonDetail person={person}/>
+                <PersonDetail personDetailModel={this.personDetailModel}/>
             </div>            
         );
     }

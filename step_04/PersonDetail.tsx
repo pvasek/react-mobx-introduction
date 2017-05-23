@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
+import { maxLength, isRequired } from "./validations";
 
 export interface IPersonDetailProps {
     person: any; 
@@ -9,15 +10,8 @@ export interface IPersonDetailState {
     FirstName?: string;
     LastName?: string;
     FirstNameErrors?: string[];
-    LastNameErrors?: string[];    
+    LastNameErrors?: string[];  
 }
-
-const isRequired =  (value) => {
-    if (!value || value === '') {
-        return ['Field is required'];
-    }
-    return [];
-};
 
 export class PersonDetail extends Component<IPersonDetailProps, IPersonDetailState> {
 
@@ -32,30 +26,44 @@ export class PersonDetail extends Component<IPersonDetailProps, IPersonDetailSta
     }
 
     onFirstNameChange(e: React.ChangeEvent<HTMLInputElement>) {
+        console.log(e.target.value.length);
+        this.setState({FirstNameErrors: [...maxLength(e.target.value), ...isRequired(e.target.value)]}, () => console.log(this.state.FirstNameErrors.length));
         this.setState({FirstName: e.target.value});
     }
 
     onLastNameChange(e: React.ChangeEvent<HTMLInputElement>) {
-        this.setState({LastName: e.target.value});
+        this.setState({
+            LastNameErrors: [...maxLength(e.target.value), ...isRequired(e.target.value)],
+            LastName: e.target.value});
     }
 
     render() {
        const { person } = this.props;
+       
         if (!person) {
             return <span>No data</span>;
         }
 
-        const { FirstName, LastName } = this.state;
+        const {
+            FirstName,
+            FirstNameErrors = [],
+            LastName,
+            LastNameErrors = [],
+        } = this.state;
 
+        const className = FirstNameErrors.length > 0 ? 'error' : '';
+        const errorDiv = LastNameErrors.map(i => <div key={i} className="error">{i}</div>);
+        
         return (
             <div className="form">
                 <div>
-                    <label>First Name:</label>
+                    <label className={className} >First Name:</label>
                     <input type="text" value={FirstName} onChange={this.onFirstNameChange}/>
                 </div>
                 <div>
                     <label>Last Name:</label>
                     <input type="text" value={LastName}  onChange={this.onLastNameChange}/>
+                    {errorDiv}
                 </div>
                 <div>
                     <label>Country:</label>
