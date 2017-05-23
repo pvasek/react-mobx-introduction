@@ -25,6 +25,13 @@ export class PersonDetailModel{
                 this.LastName.value = person.LastName;
             });
     }
+
+    isLoaded(){
+        if(this.FirstName.value === "" && this.LastName.value === ""){
+            return false;
+        }
+        return true
+    }
     
     FirstName = new Field('FirstName', isRequired);
     LastName = new Field('LastName', isRequired);
@@ -55,7 +62,7 @@ export class PersonDetail extends Component<IPersonDetailProps, any> {
 
     render() {
        const { personDetailModel } = this.props; 
-        if (!personDetailModel || personDetailModel.FirstName.value === "" && personDetailModel.LastName.value === "") {
+        if (!personDetailModel.isLoaded()) {
             return <span>No data</span>;
         }
         return (
