@@ -26,9 +26,6 @@ export class ShotModel{
         this.to = new PointModel(shot.to);
         this.key = key;
     }
-    @action.bound onClickOnDelete(e: React.MouseEvent<HTMLButtonElement>){
-        console.log(e);
-    }
 }
 
 export class PointModel{
@@ -36,11 +33,18 @@ export class PointModel{
     constructor(point: Point){
         this.point = point
     }
+
+    isNumber(number: string, previousValue: number){
+        if(number === ""){return 0; }
+        else if(!Number(number)){ return previousValue; }
+        return Number(number);
+    }
+
     @action.bound onChangeX(e: React.ChangeEvent<HTMLInputElement>){
-        this.point.x = Number(e.target.value)? Number(e.target.value) : this.point.x;
+        this.point.x = this.isNumber(e.target.value, this.point.x);
     }
     @action.bound onChangeY(e: React.ChangeEvent<HTMLInputElement>){
-        this.point.y = Number(e.target.value)? Number(e.target.value) : this.point.y;
+        this.point.y = this.isNumber(e.target.value, this.point.y);
     }
 }
 
@@ -48,9 +52,10 @@ export class ShotListModel{
     @observable shots: ShotModel[] = [];
     private shotNumber: number = 0;
     
-    @action onDelete(shotModel: ShotModel){
-        console.log("do you really want to delete line: " + shotModel.key);
-        //ReactDOM.unmountComponentAtNode(shotModel);
+    @action deleteShot(shotModel: ShotModel){
+        //console.log(shotModel.key)
+        this.shots.splice(this.shots.indexOf(shotModel), 1);
+        this.shots.map(shot => shot.key = this.shots.indexOf(shot)+1);
     }
     
     @action.bound onAddShot(){
