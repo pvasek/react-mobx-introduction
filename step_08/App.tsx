@@ -9,9 +9,9 @@ export class App extends Component<{},{}> {
     shotListModel: ShotListModel = new ShotListModel;
     render(){
         return (
-            <div >
+            <div id="container">
+                <MapComponent width={600} height={600} shots={this.shotListModel} />
                 <ShotList model={this.shotListModel}/>
-                <MapComponent width={300} height={300} shots={this.shotListModel} />
             </div>
         );
     }

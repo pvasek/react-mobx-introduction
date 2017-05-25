@@ -35,16 +35,18 @@ export class PointModel{
     }
 
     isNumber(number: string, previousValue: number){
-        if(number === ""){return 0; }
+        if(number === "" || number === "0"){return 0; }
         else if(!Number(number)){ return previousValue; }
         return Number(number);
     }
 
     @action.bound onChangeX(e: React.ChangeEvent<HTMLInputElement>){
         this.point.x = this.isNumber(e.target.value, this.point.x);
+        e.target.value = this.point.x.toString();
     }
     @action.bound onChangeY(e: React.ChangeEvent<HTMLInputElement>){
         this.point.y = this.isNumber(e.target.value, this.point.y);
+        e.target.value = this.point.y.toString();
     }
 }
 

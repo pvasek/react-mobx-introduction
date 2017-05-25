@@ -13,8 +13,8 @@ export class ShotList extends Component<ShotListProps,{}>{
     
     render(){
         return (
-            <div>
-                <label>Shots</label>
+            <div id="shotList">
+                <h2>Shots</h2>
                 <hr />
                 <table>
                     <thead>
