@@ -14,7 +14,7 @@ export class ShotList extends Component<ShotListProps,{}>{
     render(){
         return (
             <div id="shotList">
-                <h2>Shots</h2>
+                <h2>Golf shots</h2>
                 <hr />
                 <table>
                     <thead>

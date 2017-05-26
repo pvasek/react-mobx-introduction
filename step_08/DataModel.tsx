@@ -68,4 +68,22 @@ export class ShotListModel{
         const nextShot: Shot = {from:{x:positionX, y:positionY}, to:{x:0, y:0}};
         this.shots.push(new ShotModel(nextShot, this.shotNumber));
     }
+
+    elmntMove: PointModel;
+    canMove: boolean = false;
+    @action startMoving(pointModel: PointModel){
+        this.elmntMove = pointModel;
+        this.canMove = true;
+    }
+    @action stopMoving(){
+        this.canMove = false;
+    }
+
+    @action move(mouseX: number, mouseY: number){
+        //console.log(mouseX + " " + mouseY);
+        if(this.canMove){
+            this.elmntMove.point.x=mouseX;
+            this.elmntMove.point.y=mouseY;
+        }
+    }
 }
