@@ -21,12 +21,12 @@ export class AreaMap {
     name: string;
     constructor(iarea: IArea){
         this.name = iarea.Name;
-        iarea.Outline.forEach(line => {
+        this.points = iarea.Outline.map(line => {
             const tempPoints = line.split(',');
-            this.points.push(tempPoints[0] + "," + tempPoints[1]);
+            return `${tempPoints[0]},${tempPoints[1]}`;
         });
     }
-}
+};
 
 @observer
 export class Areas extends Component<AreasProps,{}>{
@@ -36,6 +36,7 @@ export class Areas extends Component<AreasProps,{}>{
         fetch(this.props.url).then(response =>  response.json().then(data => {
             if(!this.data){
                 this.data = data;
+            console.log("Data loaded")
             }
         }));
     }
@@ -46,7 +47,7 @@ export class Areas extends Component<AreasProps,{}>{
     }
 
     render(){
-        this.loadData();
+        !this.data? this.loadData():null;
         if(!this.data){return <span>No data</span>}
         this.manageData();
         return(

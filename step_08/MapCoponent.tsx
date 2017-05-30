@@ -4,6 +4,8 @@ import { observable, action } from 'mobx';
 import { observer } from "mobx-react";
 import { Shot, ShotListModel } from "./DataModel";
 import { Areas } from "./Areas";
+import { LineGrid } from "./LineGrid";
+import { PointGrid } from "./PointGrid"
 
 export interface MapComponentProps{
     shots: ShotListModel;
@@ -31,7 +33,9 @@ export class MapComponent extends Component<MapComponentProps, {}>{
                         }
                      onMouseUp={() => this.props.shots.stopMoving()}
                      viewBox={"0 0 " + (this.props.width) + " " + (this.props.height)} >
+                     <LineGrid step={20} />
                      <Areas url="http://localhost:8080/MapsHoleMap.json" />
+                     <PointGrid step={20} />
                      {this.props.shots.shots.map(shot =>
                         <g key={shot.key} id="group">
                             <path stroke="red" strokeWidth="2" d={"M " + (shot.from.point.x) + " " + (shot.from.point.y) + "L" + (shot.to.point.x) + " " + (shot.to.point.y)} />
