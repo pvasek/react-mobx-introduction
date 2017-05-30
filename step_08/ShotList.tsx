@@ -38,7 +38,7 @@ export class ShotList extends Component<ShotListProps,{}>{
                         }
                     </tbody>
                 </table> 
-                <button onClick={this.props.model.onAddShot}>Add shot</button>
+                <button onClick={this.props.model.onAddShot}>Add shot</button><span>{"Shot count: " + this.props.model.shots.length}</span>
             </div>
         );
     }

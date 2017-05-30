@@ -63,9 +63,9 @@ export class ShotListModel{
     @action.bound onAddShot(){
         this.shotNumber++;
         const lastShot = this.shots[this.shots.length-1];
-        const positionX: number = lastShot? lastShot.to.point.x : 0;
-        const positionY: number = lastShot? lastShot.to.point.y : 0;
-        const nextShot: Shot = {from:{x:positionX, y:positionY}, to:{x:0, y:0}};
+        const positionX: number = lastShot? lastShot.to.point.x : 10;
+        const positionY: number = lastShot? lastShot.to.point.y : 10;
+        const nextShot: Shot = {from:{x:positionX, y:positionY}, to:{x:10, y:10}};
         this.shots.push(new ShotModel(nextShot, this.shotNumber));
     }
 

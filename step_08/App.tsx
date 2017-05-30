@@ -10,7 +10,7 @@ export class App extends Component<{},{}> {
     render(){
         return (
             <div id="container">
-                <MapComponent width={600} height={300} shots={this.shotListModel} />
+                <MapComponent width={630} height={300} shots={this.shotListModel} />
                 <ShotList model={this.shotListModel}/>
             </div>
         );
