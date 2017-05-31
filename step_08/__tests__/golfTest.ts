@@ -1,6 +1,6 @@
-import { ShotListModel, ShotModel } from "../DataModel";
 import  "mocha";
 import { assert } from "chai";
+import { ShotListModel, ShotModel } from "../ShotList";
 
 it("from point should be the same as to point of a previous shot", function () {
     let shotListModel = new ShotListModel;

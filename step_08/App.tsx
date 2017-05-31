@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { Component } from 'react';
-import { ShotList } from "./ShotList";
-import { MapComponent } from "./MapCoponent";
-import { ShotModel, ShotListModel } from "./DataModel";
+import { ShotList, ShotListModel } from "./ShotList";
+import { MapComponent } from "./MapComponent";
 
 export class App extends Component<{},{}> {
     //shots = [{from:{x:0,y:0}, to:{x:100, y:200}}, {from:{x:100,y:200}, to:{x:200, y:50}}];
