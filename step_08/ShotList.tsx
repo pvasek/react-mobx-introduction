@@ -82,7 +82,6 @@ export class PointModel{
 
 export class ShotListModel{
     @observable shots: ShotModel[] = [];
-    private shotNumber: number = 0;
     
     @action deleteShot(shotModel: ShotModel){
         //console.log(shotModel.key)
@@ -93,11 +92,10 @@ export class ShotListModel{
     @action.bound onAddShot(){
         const lastShot = this.shots[this.shots.length-1];
         if(!lastShot || lastShot.to.point.x != 50 || lastShot.to.point.y != 10){
-            this.shotNumber++;
             const positionX: number = lastShot? lastShot.to.point.x : 10;
             const positionY: number = lastShot? lastShot.to.point.y : 10;
             const nextShot: IShot = {from:{x:positionX, y:positionY}, to:{x:50, y:10}};
-            this.shots.push(new ShotModel(nextShot, this.shotNumber));
+            this.shots.push(new ShotModel(nextShot, this.shots.length+1));
         }
     }
 

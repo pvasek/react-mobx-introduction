@@ -14,4 +14,9 @@ export class Data{
             }
         }));
     }
+
+    static getPoint(point: string){
+        const tempPoints = point.split(',');
+        return {x: Number(tempPoints[0]), y: Number(tempPoints[1])}
+    }
 }

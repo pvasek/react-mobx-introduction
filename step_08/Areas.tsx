@@ -4,6 +4,7 @@ import { observable, action  } from 'mobx';
 import { observer } from "mobx-react";
 import { IArea, IData } from "./DataModel";
 import { MapComponent } from "./MapComponent";
+import { Data } from "./FetchData";
 
 export interface AreasProps{
     data: IData;
@@ -17,7 +18,7 @@ export class AreaMap {
     constructor(iarea: IArea, padding: number){
         this.name = iarea.Name;
         this.points = iarea.Outline.map(line => {
-            let point = MapComponent.getPoint(line);
+            let point = Data.getPoint(line);
             return `${point.x+padding},${point.y+padding}`;
         });
     }

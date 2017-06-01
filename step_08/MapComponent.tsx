@@ -39,9 +39,9 @@ export class MapComponent extends Component<MapComponentProps, {}>{
                         }
                      onMouseUp={() => this.props.shots.stopMoving()}
                      viewBox={"0 0 " + (this.props.width + padding) + " " + (this.props.height + padding)} >
-                     <LineGrid fontSize={6} step={holeGridStepping} gridOrigin={MapComponent.getPoint(this.response.data.HoleGrid.Origin)} />
+                     <LineGrid windowWidth={this.props.width + padding} step={holeGridStepping} gridOrigin={Data.getPoint(this.response.data.HoleGrid.Origin)} />
                      <Areas data={this.response.data} padding={padding} />
-                     <PointGrid step={holeGridStepping} gridOrigin={MapComponent.getPoint(this.response.data.HoleGrid.Origin)} />
+                     <PointGrid windowWidth={this.props.width + padding} fontSize={6} step={holeGridStepping} gridOrigin={Data.getPoint(this.response.data.HoleGrid.Origin)} />
                      {this.props.shots.shots.map(shot =>
                         <ShotComponent key={shot.key} shot={shot} shots={this.props.shots} padding={padding} />
                      )}
@@ -49,11 +49,6 @@ export class MapComponent extends Component<MapComponentProps, {}>{
             </div>
         );
     } 
-    
-    static getPoint(point:string):IPoint{
-        const tempPoints = point.split(',');
-        return {x: Number(tempPoints[0]), y: Number(tempPoints[1])};
-    }
 }
 
 export interface ShotProps{

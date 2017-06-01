@@ -37,3 +37,9 @@ export interface IReferencePoints{
     Point: string;
     Color: number;
 }
+
+export interface Num{
+    value: string;
+    x: number;
+    y: number;
+}
