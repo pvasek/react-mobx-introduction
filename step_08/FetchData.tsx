@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { IData, IPoint } from "./DataModel";
 import { observable } from "mobx/lib/mobx";
+import { App } from "./App";
 
 export class Data{
     @observable data: IData;
@@ -16,7 +17,8 @@ export class Data{
     }
 
     static getPoint(point: string){
+        
         const tempPoints = point.split(',');
-        return {x: Number(tempPoints[0]), y: Number(tempPoints[1])}
+        return {x: Number(tempPoints[0]) + App.offSet.x, y: Number(tempPoints[1]) + App.offSet.y}
     }
 }

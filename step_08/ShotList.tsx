@@ -3,6 +3,8 @@ import { Component } from 'react';
 import { observable, action, autorun } from 'mobx';
 import { observer } from "mobx-react";
 import { IShot, IPoint } from "./DataModel";
+import { Sector } from "./PointGrid";
+import { App } from "./App";
 
 export interface ShotListProps{
     model: ShotListModel;
@@ -39,6 +41,8 @@ export class ShotList extends Component<ShotListProps,{}>{
                     </tbody>
                 </table> 
                 <button onClick={this.props.model.onAddShot}>Add shot</button><span>{"Shot count: " + this.props.model.shots.length}</span>
+                <h3>Selected Sector</h3>
+                <span>{this.props.model.selectedSector?this.props.model.selectedSector.column : "None"}</span><span>{this.props.model.selectedSector?this.props.model.selectedSector.row : ""}</span>
             </div>
         );
     }
@@ -81,7 +85,11 @@ export class PointModel{
 }
 
 export class ShotListModel{
-    @observable shots: ShotModel[] = [];
+    //
+    // Testing data
+    //                                V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V V 
+    @observable shots: ShotModel[] = [new ShotModel({from:{x:31 + App.offSet.x, y:81 + App.offSet.y}, to:{x:93 + App.offSet.x, y:48 + App.offSet.y}}, 1),new ShotModel({from:{x:93 + App.offSet.x, y:48 + App.offSet.y}, to:{x:157 + App.offSet.x, y:57 + App.offSet.y}}, 2),new ShotModel({from:{x:157 + App.offSet.x, y:57 + App.offSet.y}, to:{x:319 + App.offSet.x, y:66 + App.offSet.y}}, 3)];
+    @observable selectedSector: Sector;
     
     @action deleteShot(shotModel: ShotModel){
         //console.log(shotModel.key)
@@ -92,9 +100,9 @@ export class ShotListModel{
     @action.bound onAddShot(){
         const lastShot = this.shots[this.shots.length-1];
         if(!lastShot || lastShot.to.point.x != 50 || lastShot.to.point.y != 10){
-            const positionX: number = lastShot? lastShot.to.point.x : 10;
-            const positionY: number = lastShot? lastShot.to.point.y : 10;
-            const nextShot: IShot = {from:{x:positionX, y:positionY}, to:{x:50, y:10}};
+            const positionX: number = lastShot? lastShot.to.point.x : 10 + App.offSet.x;
+            const positionY: number = lastShot? lastShot.to.point.y : 10 + App.offSet.y;
+            const nextShot: IShot = {from:{x:positionX, y:positionY}, to:{x:50 + App.offSet.x, y:10 + App.offSet.y}};
             this.shots.push(new ShotModel(nextShot, this.shots.length+1));
         }
     }
@@ -127,5 +135,9 @@ export class ShotListModel{
        //     this.elmntMove.point.x=mouseX;
        //     this.elmntMove.point.y=mouseY;
        // }
+    }
+
+    @action onSectorClick(sector:Sector){
+        this.selectedSector = sector;
     }
 }

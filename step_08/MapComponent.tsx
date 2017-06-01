@@ -8,9 +8,10 @@ import { LineGrid } from "./LineGrid";
 import { PointGrid } from "./PointGrid"
 import { ShotListModel, ShotModel } from "./ShotList";
 import { Data } from "./FetchData";
+import { App } from "./App";
 
 export interface MapComponentProps{
-    shots: ShotListModel;
+    shotList: ShotListModel;
     width: number;
     height: number;
 }
@@ -34,16 +35,16 @@ export class MapComponent extends Component<MapComponentProps, {}>{
                             const x = m.a*mouseX + m.c*mouseY + m.e;
                             const y = m.b*mouseX + m.d*mouseY + m.f;                            
                             //console.log('position: ', this.position, 'result: ', correctPosition, xx, yy)
-                            this.props.shots.move(Math.round(x - padding), Math.round(y - padding))}
+                            this.props.shotList.move(Math.round(x - padding), Math.round(y - padding))}
                             }
                         }
-                     onMouseUp={() => this.props.shots.stopMoving()}
-                     viewBox={"0 0 " + (this.props.width + padding) + " " + (this.props.height + padding)} >
+                     onMouseUp={() => this.props.shotList.stopMoving()}
+                     viewBox={App.offSet.x + " " + App.offSet.y + " " + (this.props.width + padding) + " " + (this.props.height + padding)} >
                      <LineGrid windowWidth={this.props.width + padding} step={holeGridStepping} gridOrigin={Data.getPoint(this.response.data.HoleGrid.Origin)} />
                      <Areas data={this.response.data} padding={padding} />
-                     <PointGrid windowWidth={this.props.width + padding} fontSize={6} step={holeGridStepping} gridOrigin={Data.getPoint(this.response.data.HoleGrid.Origin)} />
-                     {this.props.shots.shots.map(shot =>
-                        <ShotComponent key={shot.key} shot={shot} shots={this.props.shots} padding={padding} />
+                     <PointGrid shotList={this.props.shotList} windowWidth={this.props.width + padding} fontSize={6} step={holeGridStepping} gridOrigin={Data.getPoint(this.response.data.HoleGrid.Origin)} />
+                     {this.props.shotList.shots.map(shot =>
+                        <ShotComponent key={shot.key} shot={shot} shots={this.props.shotList} padding={padding} />
                      )}
                 </svg>
             </div>

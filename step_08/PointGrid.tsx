@@ -1,12 +1,15 @@
 import * as React from 'react';
 import { Component } from 'react';
-import { IPoint, Num } from "./DataModel";
+import { IPoint, INum } from "./DataModel";
+import { ShotListModel } from "./ShotList";
+import { App } from "./App";
 
 export interface LineGridProps{
     step: number;
     gridOrigin: IPoint;
     windowWidth: number;
     fontSize: number
+    shotList: ShotListModel;
 }
 
 export class Sector{
@@ -31,12 +34,12 @@ export class PointGrid extends Component<LineGridProps, {}>{
         const fontSize = this.props.fontSize;
         const step = this.props.step;
         const gridOrigin = this.props.gridOrigin;
-
-        let rowValue = (gridOrigin.y/step >> 0) - 1;
-        for(var y = this.props.step + gridOrigin.y % this.props.step; y <= gridOrigin.y; y += step){
+        const height = gridOrigin.y - App.offSet.y >> 0;
+        let rowValue = (height/step - 1) >> 0;
+        for(var y = this.props.step + gridOrigin.y - height + height % step; y <= gridOrigin.y; y += step){
             let colValue: number = 0;
             let row: Sector[] = [];
-            for(var x = this.props.step + gridOrigin.x; x <= this.props.windowWidth; x += step){
+            for(var x = this.props.step + gridOrigin.x; x <= this.props.windowWidth + gridOrigin.x; x += step){
                 row.push(new Sector(x, y, step, this.idOf(colValue), rowValue));
                 colValue++;
             }
@@ -45,8 +48,8 @@ export class PointGrid extends Component<LineGridProps, {}>{
         }
     }
 
-    horizontalChars: Num[] = [];
-    verticalNums: Num[] = [];
+    horizontalChars: INum[] = [];
+    verticalNums: INum[] = [];
 
     idOf(i) {
         return (i >= 26 ? this.idOf((i / 26 >> 0) - 1) : '') + 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[i % 26];
@@ -75,19 +78,21 @@ export class PointGrid extends Component<LineGridProps, {}>{
     render(){
         if(this.sectorRows.length == 0){ 
             this.createSectors(); 
-            this.numbering()
+            this.numbering();
+            
         }
+
         return(
             <g>
                 <defs>
                     <pattern id="pointGrid" x={this.props.gridOrigin.x + this.props.step} y={this.props.gridOrigin.y + this.props.step} patternUnits="userSpaceOnUse" width={this.props.step} height={this.props.step}>
-                        <circle cx={this.props.step} cy={this.props.step} r="0.5" fill="black" />
+                        <circle cx={0} cy={this.props.step} r="0.5" fill="black" />
                     </pattern>         
                 </defs>
                 <rect x={this.props.gridOrigin.x} width={this.props.windowWidth + this.props.step} height={this.props.gridOrigin.y + this.props.step} fill="url(#pointGrid)" />
                 {this.sectorRows.map(sectorLine =>
                     sectorLine.map(sector =>
-                        <rect key={sectorLine.indexOf(sector)} onClick={e => console.log("Row: ", sector.row, " column: ", sector.column)} className="sector" x={sector.x} y={sector.y} width={sector.a} height={sector.a} />))}
+                        <rect key={sectorLine.indexOf(sector)} onClick={e => this.props.shotList.onSectorClick(sector)} className="sector" x={sector.x} y={sector.y} width={sector.a} height={sector.a} />))}
                 {this.horizontalChars.map(num => <text key={num.value} fontSize={this.props.fontSize} x={num.x} y={num.y}>{num.value}</text>)}
                 {this.verticalNums.map(num => <text key={num.value} fontSize={this.props.fontSize} x={num.x} y={num.y}>{num.value}</text>)}
                 <circle cx={this.props.gridOrigin.x + this.props.step} cy={this.props.gridOrigin.y + this.props.step} r={1.5} fill="red" />
