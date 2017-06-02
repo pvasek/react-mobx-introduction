@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { IData, IPoint } from "./DataModel";
-import { observable } from "mobx/lib/mobx";
+import { observable } from "mobx";
 import { App } from "./App";
 
 export class Data{

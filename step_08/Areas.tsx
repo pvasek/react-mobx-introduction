@@ -4,7 +4,7 @@ import { observable, action  } from 'mobx';
 import { observer } from "mobx-react";
 import { IArea, IData } from "./DataModel";
 import { MapComponent } from "./MapComponent";
-import { Data } from "./FetchData";
+import { Data } from "./LoadData";
 
 export interface AreasProps{
     data: IData;

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
-import { observable, action, autorun } from 'mobx';
+import { observable, action } from 'mobx';
 import { observer } from "mobx-react";
 import { IShot, IPoint } from "./DataModel";
 import { Sector } from "./PointGrid";
@@ -139,5 +139,11 @@ export class ShotListModel{
 
     @action onSectorClick(sector:Sector){
         this.selectedSector = sector;
+        const lastShot = this.shots[this.shots.length-1];
+        const positionX: number = lastShot? lastShot.to.point.x : 10 + App.offSet.x;
+        const positionY: number = lastShot? lastShot.to.point.y : 10 + App.offSet.y;
+        const nextShot: IShot = {from:{x:positionX, y:positionY}, to:{x:sector.x - 5, y:sector.y - 5}};
+        this.shots.push(new ShotModel(nextShot, this.shots.length+1));
+        
     }
 }

@@ -1,6 +1,4 @@
 import * as React from 'react';
-import { observable, action } from 'mobx';
-import * as ReactDOM from "@types/react-dom";
 
 // DATAMODEL
 export interface IShot{
