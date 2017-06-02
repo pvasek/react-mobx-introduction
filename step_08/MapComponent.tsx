@@ -9,6 +9,7 @@ import { ShotListModel } from "./ShotList";
 import { Data } from "./LoadData";
 import { App } from "./App";
 import { ShotComponent } from "./ShotComponent";
+import { ZoomableComponent } from "./ZoomableComponent";
 
 export interface MapComponentProps{
     shotList: ShotListModel;
@@ -26,27 +27,18 @@ export class MapComponent extends Component<MapComponentProps, {}>{
         const padding: number = holeGridStepping;
         return(
             <div id="svg">
-                <svg id="svgMap" onMouseMove={(event) =>{ 
-                    if(document.querySelector("#group")){
-                            var matrix  = (document.querySelector("#group") as any).getScreenCTM();
-                            const m: SVGMatrix = matrix.inverse();
-                            const mouseX = event.clientX;
-                            const mouseY = event.clientY;
-                            const x = m.a*mouseX + m.c*mouseY + m.e;
-                            const y = m.b*mouseX + m.d*mouseY + m.f;                            
-                            //console.log('position: ', this.position, 'result: ', correctPosition, xx, yy)
-                            this.props.shotList.move(Math.round(x - padding), Math.round(y - padding))}
-                            }
-                        }
-                     onMouseUp={() => this.props.shotList.stopMoving()}
-                     viewBox={App.offSet.x + " " + App.offSet.y + " " + (this.props.width + padding) + " " + (this.props.height + padding)} >
-                     <LineGrid windowWidth={this.props.width + padding} step={holeGridStepping} gridOrigin={Data.getPoint(this.response.data.HoleGrid.Origin)} />
-                     <Areas data={this.response.data} padding={padding} />
-                     <PointGrid shotList={this.props.shotList} windowWidth={this.props.width + padding} fontSize={6} step={holeGridStepping} gridOrigin={Data.getPoint(this.response.data.HoleGrid.Origin)} />
-                     {this.props.shotList.shots.map(shot =>
-                        <ShotComponent key={shot.key} shot={shot} shots={this.props.shotList} padding={padding} />
-                     )}
-                </svg>
+                <ZoomableComponent defaultWidth={this.props.width} defaultHeight={this.props.height} padding={padding}
+                 xPosition={App.offSet.x} yPosition={App.offSet.y} shotList={this.props.shotList}>
+
+                    <LineGrid windowWidth={this.props.width + padding} step={holeGridStepping} gridOrigin={Data.getPoint(this.response.data.HoleGrid.Origin)} />
+                    <Areas data={this.response.data} padding={padding} />
+                    <PointGrid shotList={this.props.shotList} windowWidth={this.props.width + padding} fontSize={6} step={this.response.data.HoleGrid.Step}
+                     gridOrigin={Data.getPoint(this.response.data.HoleGrid.Origin)} />
+                     
+                    {this.props.shotList.shots.map(shot =>
+                       <ShotComponent key={shot.key} shot={shot} shots={this.props.shotList} padding={padding} />
+                    )}
+                </ZoomableComponent>
             </div>
         );
     } 
