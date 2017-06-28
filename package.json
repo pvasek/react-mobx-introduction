@@ -7,28 +7,21 @@
     "webpack": "webpack",
     "tsc": "tsc",
     "webpack:watch:dev": "webpack-dev-server --watch --inline",
-    "start": "npm run webpack:watch:dev",
-    "mocha": "mocha ./temp/**/__tests__/*.js",
-    "test": "npm run tsc && npm run mocha"
+    "start": "npm run webpack:watch:dev"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "core-js": "^2.4.1",
+    "mobx": "^3.1.9",
+    "mobx-react": "^4.1.8",
     "react": "^15.5.4",
     "react-dom": "^15.5.4"
   },
   "devDependencies": {
-    "@types/chai": "^3.5.2",
     "@types/core-js": "^0.9.41",
-    "@types/mocha": "^2.2.41",
     "@types/react": "^15.0.24",
     "@types/react-dom": "^15.5.0",
-    "chai": "^3.5.0",
-    "extract-text-webpack-plugin": "^2.1.0",
-    "mobx": "^3.1.9",
-    "mobx-react": "^4.1.8",
-    "mocha": "^3.4.1",
     "ts-loader": "^2.1.0",
     "typescript": "^2.3.2",
     "webpack": "^2.5.1",
